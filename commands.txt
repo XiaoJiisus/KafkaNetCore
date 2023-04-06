@@ -19,7 +19,6 @@ docker compose exec broker kafka-topics --create \ --topic purchases \ --bootstr
 docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --list
 
 
-
 -- OTHER COMMANDS --
     -delete
         docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --delete \ --topic *TOPIC_NAME
