@@ -17,3 +17,19 @@ docker compose exec broker kafka-topics --create \ --topic purchases \ --bootstr
 
         -- the second is to view all topics has kafka running on your localhost
 docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --list
+
+
+
+-- OTHER COMMANDS --
+    -delete
+        docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --delete \ --topic *TOPIC_NAME
+    -describe topic
+        docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --describe \ --topic *TOPIC_NAME
+    -create producer
+        docker compose exec broker kafka-console-producer \ --bootstrap-server localhost:9092 \ --topic *TOPIC_NAME
+    -create consumer
+        docker compose exec broker kafka-console-consumer \ --bootstrap-server localhost:9092 \ --topic *TOPIC_NAME \ --from-beginning
+    -purge kafka topic
+        docker compose exec broker kafka-configs \ --bootstrap-server localhost:9092 \ --alter \ --entity-type topics \ --entity-name *TOPIC_NAME \ --add-config retention.ms=1000
+    --list all consumer groups
+        docker compose exec broker kafka-consumer-groups \ --bootstrap-server localhost:9092 \ --list
