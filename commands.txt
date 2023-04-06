@@ -1,0 +1,19 @@
+dotnet new console --framework net6.0 -o consumer -n KafkaConsumer
+dotnet new console --framework net6.0 -o producer -n KafkaProducer
+
+    -- add this packages to both projects
+dotnet add package confluent.Kafka
+
+    -- build the kafka zookeeper broker docker image (this is only for your localhost)
+cd Sample
+docker compose up -d
+
+    -- create the configuration properties file
+getting-started.properties
+
+    -- the below commands are needed to run in cli
+        -- the first one is to create PURCHASES topic
+docker compose exec broker kafka-topics --create \ --topic purchases \ --bootstrap-server localhost:9092 \ --replication-factor 1 \ --partitions 1
+
+        -- the second is to view all topics has kafka running on your localhost
+docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --list
