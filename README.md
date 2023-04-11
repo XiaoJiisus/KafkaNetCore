@@ -13,5 +13,5 @@ Topic and logs
 
 <!-- ![KafkaAnatomy](Images/Anatomy.png.jpg) -->
 <div class="row">
-    <img src="https://github.com/XiaoJiisus/KafkaNetCore/blob/main/Images/Anatomy.png" width="100" height="100">
+    <img src="https://github.com/XiaoJiisus/KafkaNetCore/blob/main/Images/Anatomy.png" width="200" height="200">
 </div>
