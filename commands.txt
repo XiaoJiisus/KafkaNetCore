@@ -24,11 +24,28 @@ docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --
         docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --delete \ --topic *TOPIC_NAME
     -describe topic
         docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --describe \ --topic *TOPIC_NAME
+    --create topic with replications
+        docker compose exec broker kafka-topics \ --bootstrap-server localhost:9092 \ --create \ --topic *TOPIC_NAME \ --partitions 3 \ --replication-factor 2
     -create producer
         docker compose exec broker kafka-console-producer \ --bootstrap-server localhost:9092 \ --topic *TOPIC_NAME
     -create consumer
         docker compose exec broker kafka-console-consumer \ --bootstrap-server localhost:9092 \ --topic *TOPIC_NAME \ --from-beginning
     -purge kafka topic
         docker compose exec broker kafka-configs \ --bootstrap-server localhost:9092 \ --alter \ --entity-type topics \ --entity-name *TOPIC_NAME \ --add-config retention.ms=1000
+    -revert the purge
+        docker compose exec broker kafka-configs \ --bootstrap-server localhost:9092 \ --alter \ --entity-type topics \ --entity-name *TOPIC_NAME \ --delete-config retention.ms
     --list all consumer groups
         docker compose exec broker kafka-consumer-groups \ --bootstrap-server localhost:9092 \ --list
+    --get detail of specific consumer group
+        docker compose exec broker kafka-consumer-groups \ --bootstrap-server localhost:9092 \ --describe \ --group my-group
+    --list all active members in the consumer group
+        docker compose exec broker kafka-consumer-groups \ --bootstrap-server localhost:9092 \ --describe \ --group my-group \ --members
+        docker compose exec broker kafka-consumer-groups \ --bootstrap-server localhost:9092 \ --describe \ --group my-group \ --members \ --verbose
+    -increase the number of kafka topic partitions
+        kafka-topics \ --bootstrap-server localhost:9092 \ --alter \ --topic topic-name \ --partitions 40
+    -add configuration in kafka broker
+        kafka-configs \ --bootstrap-server localhost:9092 \ --entity-type brokers \ --entity-name 0 --alter \ --add-config log.cleaner.threads=2
+    -remove configuration in kafka broker
+        kafka-configs \ --bootstrap-server localhost:9092 \ --entity-type brokers \ --entity-name 0 \ --alter \ --delete-config log.cleaner.threads
+    -describe the current dynamic broker configuration
+        kafka-configs \ --bootstrap-server localhost:9092 \ --entity-type brokers \ --entity-name 0 --describe
